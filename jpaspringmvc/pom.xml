@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+    http://maven.apache.org/maven-v4_0_0.xsd">
+    <!-- Frederick Bloom : 2012-01-01 -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.hanaden.demo.jpaspringmvc</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>${project.groupId}:${project.artifactId}:${project.packaging}</name>
+    <packaging>pom</packaging>
+    <url>http://www.hanaden.com</url>
+
+    <properties>
+        <!--                <version.servlet.api>2.5</version.servlet.api>
+        <version.servlet.jsp>2.1</version.servlet.jsp>-->
+        <version.depend.hanaden>1.0.0-SNAPSHOT</version.depend.hanaden>
+    </properties>
+    
+    <parent>
+        <groupId>com.hanaden.depend</groupId>
+        <artifactId>depend-base</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath></relativePath>
+        <!--http://jira.codehaus.org/browse/MNG-4687-->
+    </parent>
+    
+    <modules>
+        <module>module-servicePersistence</module>
+        <module>module-serviceBusiness</module>
+        <module>module-app-war</module>
+        <module>module-integration-test-war</module>
+    </modules>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.hanaden.depend</groupId>
+                <artifactId>depend-base</artifactId>
+                <version>${version.depend.hanaden}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!--        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <type>jar</type>
+        </dependency>-->
+    </dependencies>
+    
+</project>
+
+

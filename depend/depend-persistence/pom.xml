@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+    http://maven.apache.org/maven-v4_0_0.xsd">
+    <!-- Frederick Bloom : 2012-01-01 -->
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>depend-persistence</artifactId>
+    <name>${project.groupId}:${project.artifactId}:${project.packaging}</name>
+    <packaging>pom</packaging>
+    <url>http://www.hanaden.com</url>
+
+    <parent>
+        <!--<relativePath>../module-base/pom.xml</relativePath>-->
+        <groupId>com.hanaden.depend</groupId>
+        <artifactId>depend-base</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../depend-base/pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <version.c3p0>0.9.1.2</version.c3p0>
+        <version.mysql-driver>5.1.10</version.mysql-driver>
+        <!--<hibernate.version>3.3.2.GA</hibernate.version>-->
+        <hibernate.version>4.1.6.Final</hibernate.version>
+        <!--<hibernate.version>3.5.3-Final</hibernate.version>-->
+        <h2db.version>1.3.168</h2db.version>
+
+        <version.ejb3.persistence>1.0.2.GA</version.ejb3.persistence>
+        <version.jta>1.1</version.jta>
+        <version.java.sql>2.0</version.java.sql>
+        <version.h2db>1.2.140</version.h2db>
+        <version.oracle-driver>10.2.0.4</version.oracle-driver>
+    </properties>
+
+    <modules>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.jolbox</groupId>
+                <artifactId>bonecp</artifactId>
+                <version>0.7.1.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jolbox</groupId>
+                <artifactId>bonecp-spring</artifactId>
+                <version>0.7.1.RELEASE</version>
+            </dependency>
+            
+            <!-- annotations and entity mgr -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>  
+                <groupId>org.springframework</groupId>  
+                <artifactId>spring-aspects</artifactId>  
+                <version>${spring.version}</version>  
+            </dependency> 
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--           <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-dao</artifactId>
+                <version>2.0.8</version>
+            </dependency>-->
+
+            <!--            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>-->
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2db.version}</version>
+                <type>jar</type>
+                <scope>test</scope>
+            </dependency>
+            
+            <!-- for JPA 2.0 -->
+            <!--            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>-->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>4.1.6.Final</version>
+            </dependency>
+            <!--            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-annotations</artifactId>
+                <version>3.5.6-Final</version>
+            </dependency>-->
+            <!--            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-commons-annotations</artifactId>
+                <version>3.3.0.ga</version>
+            </dependency>-->
+            <!--            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.1-api</artifactId>
+                <version>1.0.1.Final</version>
+            </dependency>-->
+            <!--            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>3.5.3-Final</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>-->
+            
+            <dependency>
+                <groupId>javax.sql</groupId>
+                <artifactId>jdbc-stdext</artifactId>
+                <version>2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.transaction</groupId>
+                <artifactId>jta</artifactId>
+                <version>1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>ejb3-persistence</artifactId>
+                <version>1.0.1.GA</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+    </dependencies>
+
+    <repositories>
+
+    </repositories>
+
+</project>
+
+

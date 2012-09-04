@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/context/spring-util-3.1.xsd">
+    
+    <!--http://blogs.sourceallies.com/2011/08/spring-injection-with-resource-and-autowired/-->
+         
+    <!--===============-->
+    <context:spring-configured />
+    <context:annotation-config />
+    <context:component-scan base-package="com.hanaden"/>
+   
+    <!--===============-->
+    <!-- Spring bean configuration. Tell Spring to bounce off BoneCP -->
+    <bean id="beanLazyDatasourceBasicTest"
+          class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource">
+            <ref local="beanDatasourceBasicTest" />
+        </property>
+    </bean>
+    
+    <!-- BoneCP configuration -->
+    <bean id="beanDatasourceBasicTest" destroy-method="close"
+          class="com.jolbox.bonecp.BoneCPDataSource">
+        <property name="driverClass" value="org.h2.Driver" />
+        <property name="jdbcUrl" value="jdbc:h2:mem:basicTestDb" />
+        <property name="username" value="username"/>
+        <property name="password" value="userpassword"/>
+        <!--<property name="idleConnectionTestPeriod" value="60"/>-->
+        <!--<property name="idleMaxAge" value="240"/>-->      
+        <property name="maxConnectionsPerPartition" value="60"/>
+        <property name="minConnectionsPerPartition" value="20"/>
+        <property name="partitionCount" value="3"/>
+        <property name="acquireIncrement" value="10"/>                              
+        <property name="statementsCacheSize" value="50"/>
+        <property name="releaseHelperThreads" value="3"/>
+    </bean>
+           
+    <!--===============-->
+    <bean
+        class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	  
+    <!--    <tx:annotation-driven mode="aspectj"
+    transaction-manager="transactionManager" />-->
+    <tx:annotation-driven transaction-manager="beanTransactionManagerBasicTest" />
+
+    <bean id="beanTransactionManagerBasicTest"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="beanLazyDatasourceBasicTest" />
+    </bean>
+    <bean id="beanCarDao"
+          class="com.hanaden.demo.jpaspringmvc.persistence.mybatis.CarDaoMyBatisAdatper">
+        <property name="dao" ref="beanCarDaoMyBatis" /> 
+    </bean>
+    <!--=-->
+  
+    <!-- mybatis setup -->   
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.hanaden.demo.jpaspringmvc.persistence" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryTest" />
+    </bean>
+    
+    <bean id="sqlSessionFactoryTest" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="beanLazyDatasourceBasicTest" />
+    </bean>
+    
+    <!--    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="transactionFactory">
+            <bean class="org.apache.ibatis.transaction.managed.ManagedTransactionFactory" />
+        </property>  
+    </bean>-->
+    
+    <bean id="beanCarDaoMyBatis" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.hanaden.demo.jpaspringmvc.persistence.mybatis.CarDaoMyBatis" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactoryTest" />
+    </bean>
+
+</beans>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/context/spring-util-3.1.xsd">
+    
+    <!--http://blogs.sourceallies.com/2011/08/spring-injection-with-resource-and-autowired/-->
+         
+    <!--===============-->
+    <context:spring-configured />
+    <context:annotation-config />
+    <context:component-scan base-package="com.hanaden"/>
+   
+    <!--===============-->
+    <!-- Spring bean configuration. Tell Spring to bounce off BoneCP -->
+    <bean id="beanLazyDatasourceBasicTest"
+          class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource">
+            <ref local="beanDatasourceBasicTest" />
+        </property>
+    </bean>
+    
+    <!-- BoneCP configuration -->
+    <bean id="beanDatasourceBasicTest" destroy-method="close"
+          class="com.jolbox.bonecp.BoneCPDataSource">
+        <property name="driverClass" value="org.h2.Driver" />
+        <property name="jdbcUrl" value="jdbc:h2:mem:basicTestDb" />
+        <property name="username" value="username"/>
+        <property name="password" value="userpassword"/>
+        <!--<property name="idleConnectionTestPeriod" value="60"/>-->
+        <!--<property name="idleMaxAge" value="240"/>-->      
+        <property name="maxConnectionsPerPartition" value="60"/>
+        <property name="minConnectionsPerPartition" value="20"/>
+        <property name="partitionCount" value="3"/>
+        <property name="acquireIncrement" value="10"/>                              
+        <property name="statementsCacheSize" value="50"/>
+        <property name="releaseHelperThreads" value="3"/>
+    </bean>
+           
+    <!--===============-->
+    <context:component-scan base-package="com.hanaden">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Repository" />
+    </context:component-scan>
+    <!--    <bean id="beanTransactionManagerBasicTest"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="entityManagerFactory"/>
+    </bean>-->
+    <!--    <bean id="beanTransactionManagerBasicTest"
+    class="org.springframework.orm.jpa.JpaTransactionManager" />-->
+    <!--p:transactionManager-ref="transactionManager" />-->
+    <bean
+        class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	  
+    <tx:annotation-driven mode="aspectj"
+                          transaction-manager="transactionManager" />
+        
+    <!--=-->
+    <bean id="beanTransactionManagerBasicTest"
+          class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="beanEntityManagerFactory"/>
+	 
+    <bean id="beanEntityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          p:dataSource-ref="beanLazyDatasourceBasicTest">
+        <!--p:jpaVendorAdapter-ref="jpaAdapter">-->
+        <property name="loadTimeWeaver">
+            <bean
+                class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+        </property>
+        <!--<property name="persistenceUnitName" value="JpaPersistenceUnit"></property>-->
+    </bean>
+    
+    <!--=-->
+    <bean id="beanCarDao" 
+          class="com.hanaden.demo.jpaspringmvc.persistence.hibernate.CarDaoJpaImpl">
+        <!--<property name="">-->
+    </bean>
+    
+    
+    <!--    <bean id="jpaAdapter"
+    class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+    p:database="${jpa.database}"
+    p:showSql="${jpa.showSql}"/>-->
+   	 
+    <!--<tx:annotation-driven transaction-manager="beanTransactionManagerBasicTest" />-->
+    
+    <!--    <bean id="beanSessionFactoryBasicTest"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="beanLazyDatasourceBasicTest"/>
+        <property name="mappingResources">
+            <list>
+                <value>/com/.....hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    ${rdbms.basicTest.hibernate.dialect}
+                </prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.connection.autocommit">false</prop>
+                <prop key="connection.autocommit">false</prop>
+                <prop key="autocommit">false</prop>
+            </props>
+        </property>
+    </bean> -->
+    
+    <!--a-->
+    <!--    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="beanLazyDatasourceBasicTest"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true"/>
+                <property name="generateDdl" value="true"/>
+                <property name="databasePlatform"
+                          value="org.hibernate.dialect.H2Dialect"/>
+            </bean>
+        </property>
+    </bean>-->
+    
+    <!--====================================-->
+    <!--JPA basic-->
+    <!--Leverage the persistence.xml in classpath:/META-INF-->
+    <!--    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" >
+        <property name="persistenceUnitName" value="puBasicTest"/>
+    </bean>-->
+    <!--DAO with no Spring references, however it contains-->
+    <!--@PersistenceContext annotated EntityManager-->
+    <!--    <bean id="beanDao"
+    class="DaoImpl"/>-->
+    <!--Spring configuration which injects JPA annotationed EntityManager-->
+    <!--    <bean
+    class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />-->
+
+</beans>
