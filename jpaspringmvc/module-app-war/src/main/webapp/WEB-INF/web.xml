@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee            http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>
+        hanaden.com - SpringMVC : JPA/Hibernate/MyBAtis DEMO
+    </display-name>
+    <description>
+        hanaden.com - SpringMVC : JPA/Hibernate/MyBAtis DEMO
+    </description>
+    <servlet-mapping>
+        <servlet-name>ParkingLotWebserviceSOAP</servlet-name>
+        <url-pattern>/ParkingLotWebserviceSOAP</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    <!--:-->
+    <listener>
+        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>spring-mvc-dispatcher-servlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/conf/spring-mvc-dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>apache-cxf-servlet</servlet-name>
+        <!--<display-name>apache-cxf-servlet</display-name>-->
+        <!--<description>Apache CXF Endpoint</description>-->
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
+    </servlet>
+    <!--:-->
+    <servlet>
+        <servlet-name>ParkingLotWebserviceSOAP</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring-mvc-dispatcher-servlet</servlet-name>
+        <url-pattern>/app/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>apache-cxf-servlet</servlet-name>
+        <url-pattern>/apache-cxf-servlet/*</url-pattern>
+    </servlet-mapping>
+    <!--:-->
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+    <!--:-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/conf/spring-applicationContext.xml</param-value>
+    </context-param>
+    <!--:-->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
