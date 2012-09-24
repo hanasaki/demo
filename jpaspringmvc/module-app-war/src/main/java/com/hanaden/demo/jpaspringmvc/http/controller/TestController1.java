@@ -26,15 +26,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  */
 @Controller
-@RequestMapping(value = "/parking")
-public class TestController {
+@RequestMapping(value = "/p")
+public class TestController1 {
 
-    private Logger logger = Logger.getLogger(TestController.class);
+    private Logger logger = Logger.getLogger(TestController1.class);
     private final String KEY = "carVo";
     @Resource(name = "beanTestBusinessService")
     private TestBusinessService testBusinessService;
 
-    public TestController() {
+    public TestController1() {
 //        logger.warn("ctor");
     }
 
@@ -61,14 +61,14 @@ public class TestController {
     CarVo getCarById(@PathVariable Long id, ModelMap model) {
         CarVo retVal = setupCar(model);
 
-        retVal = testBusinessService.findCarById(id);
+//        retVal = testBusinessService.findCarById(id);
 
         return (retVal);
     }
 
     @RequestMapping(value = "parkCar", method = RequestMethod.POST,
-    consumes = {"application/json", "application/xml"},
-    produces = {"application/json", "application/xml"})
+    consumes = {"application/json"},
+    produces = {"application/json"})
     public @ResponseBody
     CarVo parkCar(@RequestBody CarVoBase car, ModelMap map) {
         CarVo retVal = setupCar(map);

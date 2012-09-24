@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+    <!--<context-root>context-root>-->
+    <attribute name="Isolated">true</attribute>
+    <class-loading> 
+        <loader-repository>blah.war</loader-repository> 
+    </class-loading>
+    <loader-repository>blah.war</loader-repository> 
+</jboss-web>

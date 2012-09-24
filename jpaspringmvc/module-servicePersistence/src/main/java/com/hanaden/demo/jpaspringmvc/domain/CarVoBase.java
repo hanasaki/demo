@@ -33,7 +33,7 @@ public class CarVoBase implements CarVo, Serializable {
      * @return the company
      */
     @Override
-    public String getCompany() {
+    public String getManufacturer() {
         return company;
     }
 
@@ -41,7 +41,7 @@ public class CarVoBase implements CarVo, Serializable {
      * @param company the company to set
      */
     @Override
-    public void setCompany(String company) {
+    public void setManufacturer(String company) {
         this.company = company;
     }
 
@@ -65,7 +65,7 @@ public class CarVoBase implements CarVo, Serializable {
      * @return the price
      */
     @Override
-    public long getPrice() {
+    public long getYear() {
         return price;
     }
 
@@ -73,7 +73,7 @@ public class CarVoBase implements CarVo, Serializable {
      * @param price the price to set
      */
     @Override
-    public void setPrice(long price) {
+    public void setYear(long price) {
         this.price = price;
     }
 }

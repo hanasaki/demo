@@ -13,14 +13,14 @@
     </appender>
     
     <logger
-        name="com.hanaden.demo.jpaspringmvc"
+        name="com.hanaden.demo"
         additivity="false">
-        <level value="debug" />
+        <level value="DEBUG" />
         <appender-ref ref="appender-console"/>
     </logger>
 
     <root>
-        <priority value ="warn" />
+        <priority value ="WARN" />
         <appender-ref ref="appender-console" />
     </root>
 

@@ -14,8 +14,17 @@
 	http://www.springframework.org/schema/util
 	http://www.springframework.org/schema/context/spring-util-3.1.xsd">
     
-    <!--http://blogs.sourceallies.com/2011/08/spring-injection-with-resource-and-autowired/-->
-         
+    <!-- all from relative path : ie: where this file is -->
+    <import resource="classpath:/conf/spring/main/spring-beans-setupProperties.xml" />
+    <import resource="classpath:/conf/spring/main/spring-beans-webservices-*.xml" />
+   
+    <bean id ="beanTestBusinessService"
+          class="com.hanaden.demo.jpaspringmvc.service.business.impl.TestBusinessServiceImpl">
+        <property name="carDao" ref="beanCarDao" />
+    </bean>
+    
+    <!--l-->
+    
     <!--===============-->
     <context:spring-configured />
     <context:annotation-config />
@@ -87,63 +96,4 @@
         <!--<property name="">-->
     </bean>
     
-    
-    <!--    <bean id="jpaAdapter"
-    class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-    p:database="${jpa.database}"
-    p:showSql="${jpa.showSql}"/>-->
-   	 
-    <!--<tx:annotation-driven transaction-manager="beanTransactionManagerBasicTest" />-->
-    
-    <!--    <bean id="beanSessionFactoryBasicTest"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="beanLazyDatasourceBasicTest"/>
-        <property name="mappingResources">
-            <list>
-                <value>/com/.....hbm.xml</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">
-                    ${rdbms.basicTest.hibernate.dialect}
-                </prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.connection.autocommit">false</prop>
-                <prop key="connection.autocommit">false</prop>
-                <prop key="autocommit">false</prop>
-            </props>
-        </property>
-    </bean> -->
-    
-    <!--a-->
-    <!--    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="beanLazyDatasourceBasicTest"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="true"/>
-                <property name="generateDdl" value="true"/>
-                <property name="databasePlatform"
-                          value="org.hibernate.dialect.H2Dialect"/>
-            </bean>
-        </property>
-    </bean>-->
-    
-    <!--====================================-->
-    <!--JPA basic-->
-    <!--Leverage the persistence.xml in classpath:/META-INF-->
-    <!--    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" >
-        <property name="persistenceUnitName" value="puBasicTest"/>
-    </bean>-->
-    <!--DAO with no Spring references, however it contains-->
-    <!--@PersistenceContext annotated EntityManager-->
-    <!--    <bean id="beanDao"
-    class="DaoImpl"/>-->
-    <!--Spring configuration which injects JPA annotationed EntityManager-->
-    <!--    <bean
-    class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />-->
-
 </beans>

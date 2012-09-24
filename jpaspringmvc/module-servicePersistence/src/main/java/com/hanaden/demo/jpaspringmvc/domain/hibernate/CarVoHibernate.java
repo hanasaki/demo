@@ -32,13 +32,13 @@ public class CarVoHibernate extends CarVoBase {
     }
     
     @Override
-    public String getCompany() {
-        return (super.getCompany());
+    public String getManufacturer() {
+        return (super.getManufacturer());
     }
 
     @Override
-    public void setCompany(String company) {
-        super.setCompany(company);
+    public void setManufacturer(String company) {
+        super.setManufacturer(company);
     }
 
     @Column(name = "model")
@@ -54,12 +54,12 @@ public class CarVoHibernate extends CarVoBase {
 
     @Column(name = "price")
     @Override
-    public long getPrice() {
-        return (super.getPrice());
+    public long getYear() {
+        return (super.getYear());
     }
 
     @Override
-    public void setPrice(long price) {
-        super.setPrice(price);
+    public void setYear(long price) {
+        super.setYear(price);
     }
 }

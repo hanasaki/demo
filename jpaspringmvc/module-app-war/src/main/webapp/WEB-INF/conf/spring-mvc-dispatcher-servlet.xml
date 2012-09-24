@@ -1,0 +1,116 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd" >
+    
+    <!--http://stackoverflow.com/questions/7151017/spring-mvc-responsebody-415-unsupported-media-type-->
+    
+    <context:component-scan base-package="com.hanaden.demo" />
+    <!--<mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>-->
+    <!--<mvc:default-servlet-handler/>-->
+    <!--<mvc:resources mapping="/web-resources/**" location="/WEB-INF/web-resources/, /WEB-INF/web-pages" />-->
+
+    
+    <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--class="org.springframework.web.servlet.view.UrlBasedViewResolver">-->
+    <bean
+        class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="mediaTypes">
+            <map>
+                <entry key="atom" value="application/atom+xml"/>
+                <entry key="html" value="text/html"/>
+                <entry key="json" value="application/json"/>
+            </map>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+                    <property name="prefixJson" value="false" />
+                    <property name="objectMapper" ref="beanJacksonObjectMapper" />
+                </bean>  
+            </list>
+        </property>
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="prefix" value="/WEB-INF/web-pages/"/>
+                    <property name="suffix" value=".jsp"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="beanJacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper">
+        <property name="serializationInclusion" value="NON_NULL"/>
+    </bean>
+    
+    <!--Setup so responses in springmvc can be json-->
+    <bean id="beanJsonJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+        <property name="prefixJson" value="false" />
+        <property name="supportedMediaTypes" value="application/json" />
+        <!--        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json" />
+            </map>
+        </property>-->
+
+        <property name="objectMapper" ref="beanJacksonObjectMapper" />
+        <!--<property name="favorPathExtension" value="false" />-->
+        <!--<property name="favorParameter" value="true" />-->
+        <!--<property name="useNotAcceptableStatusCode" value="true" />-->
+    </bean>
+
+    <!-- Bind the return value of the Rest service to the ResponseBody. -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="beanJsonJacksonHttpMessageConverter"/>
+                <!--            <ref bean="xmlMessageConverter" /> -->    
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="jacksonSerializationConfig" class="org.codehaus.jackson.map.SerializationConfig"
+          factory-bean="beanJacksonObjectMapper" factory-method="getSerializationConfig" />
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="jacksonSerializationConfig" />
+        <property name="targetMethod" value="setSerializationInclusion" />
+        <property name="arguments">
+            <list>
+                <value type="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion">NON_DEFAULT</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- ************************************** -->
+    <!-- Ensure that the method toString() of Date objects are used to avoid 
+  		having the values as a Long -->
+    <!-- ************************************** -->
+    <bean
+        class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="jacksonSerializationConfig" />
+        <property name="targetMethod" value="disable" />
+        <property name="arguments">
+            <list>
+                <value type="org.codehaus.jackson.map.SerializationConfig.Feature">WRITE_DATES_AS_TIMESTAMPS</value>
+            </list>
+        </property>
+    </bean>
+    
+<!--    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller"/>
+    <bean id="xmlMessageConverter"
+        class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+        <constructor-arg ref="xstreamMarshaller"/>
+        <property name="supportedMediaTypes" value="application/xml"/>
+    </bean>-->
+
+</beans>

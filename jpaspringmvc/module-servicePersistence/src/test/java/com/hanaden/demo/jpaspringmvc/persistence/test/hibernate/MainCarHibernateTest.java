@@ -44,9 +44,9 @@ public class MainCarHibernateTest {
 
         //
         CarVo car = new CarVoHibernate();
-        car.setCompany("company");
+        car.setManufacturer("company");
         car.setModel("model");
-        car.setPrice(234);
+        car.setYear(234);
 
         //
 //        Assert.assertNull("PK should be null : car.pk = " + car.getId(), car.getId());
