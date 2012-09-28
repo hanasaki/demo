@@ -14,5 +14,6 @@ That way multiple projects can share the same settings (useful for formatting ru
 Any value defined here will override the pom.xml file value but is only applicable to the current project.
 -->
         <org-netbeans-modules-maven-jaxws.rest_2e_config_2e_type>user</org-netbeans-modules-maven-jaxws.rest_2e_config_2e_type>
+        <org-netbeans-modules-maven-jaxws.dont_5f_ask_5f_for_5f_nonjsr109_5f_config>true</org-netbeans-modules-maven-jaxws.dont_5f_ask_5f_for_5f_nonjsr109_5f_config>
     </properties>
 </project-shared-configuration>

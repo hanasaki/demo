@@ -6,17 +6,10 @@
     <description>
         hanaden.com - SpringMVC : JPA/Hibernate/MyBAtis DEMO
     </description>
-    <servlet-mapping>
-        <servlet-name>ParkingLotWebserviceSOAP</servlet-name>
-        <url-pattern>/ParkingLotWebserviceSOAP</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
     <!--:-->
-    <listener>
-        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
-    </listener>
     <servlet>
         <servlet-name>spring-mvc-dispatcher-servlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -35,11 +28,6 @@
         <async-supported>true</async-supported>
     </servlet>
     <!--:-->
-    <servlet>
-        <servlet-name>ParkingLotWebserviceSOAP</servlet-name>
-        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
     <servlet-mapping>
         <servlet-name>spring-mvc-dispatcher-servlet</servlet-name>
         <url-pattern>/app/*</url-pattern>
