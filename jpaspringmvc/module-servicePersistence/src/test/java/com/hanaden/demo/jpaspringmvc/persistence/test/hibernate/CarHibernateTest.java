@@ -1,5 +1,6 @@
 package com.hanaden.demo.jpaspringmvc.persistence.test.hibernate;
 
+import com.hanaden.demo.jpaspringmvc.persistence.test.CarBaseTestClass;
 import org.apache.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

@@ -1,4 +1,4 @@
-package com.hanaden.demo.jpaspringmvc.persistence.test.hibernate;
+package com.hanaden.demo.jpaspringmvc.persistence.test;
 
 import com.hanaden.demo.jpaspringmvc.domain.CarVo;
 import com.hanaden.demo.jpaspringmvc.persistence.CarDao;
