@@ -1,12 +1,12 @@
 /**
  Copyright 2010 Scott Koon
-
+ 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,15 +19,16 @@ var bootstrap = (function() {
     var itemsLoaded = []; //maintain a list of items we have already loaded to prevent duplicates
     var bootstrap = function() {
         var args = arguments;
-        if(args.length == 0) return;
+        if (args.length == 0)
+            return;
 
         var scriptSrc = "";
         //figure out if we were passed a script URL, a config object, or an array of script URLs
         var src = args[0];
 
-        if(typeof src === "string") {
-            scriptSrc =src;
-        } else if(typeof src == "object" || typeof src == "array") {
+        if (typeof src === "string") {
+            scriptSrc = src;
+        } else if (typeof src == "object" || typeof src == "array") {
             processConfigObject(src);
         }
 
@@ -42,7 +43,8 @@ var bootstrap = (function() {
             var propToCheck;
             var i = 0, l = itemsLoaded.length;
             while (i < l) {
-                if (itemsLoaded[i] == scriptSrc) return false;
+                if (itemsLoaded[i] == scriptSrc)
+                    return false;
                 i++
             }
 
@@ -57,14 +59,14 @@ var bootstrap = (function() {
             }
 
             var nodeArray = (function() {
-                    var a = [];
-                    for(var c = nodeList.length;c-- > 0;) {
-                        if(c in nodeList) {
-                            a.push(nodeList.c)
-                        }
+                var a = [];
+                for (var c = nodeList.length; c-- > 0; ) {
+                    if (c in nodeList) {
+                        a.push(nodeList.c)
                     }
-                    return a
-                    }); 
+                }
+                return a
+            });
             for (var c = 0, len = nodeArray.length; c < len; c++) {
                 if ((propToCheck in nodeArray[c]) && nodeArray[c][propToCheck] == src)
                     return false;
@@ -132,7 +134,7 @@ var bootstrap = (function() {
     }
 
     function processConfigObject(config) {
-        for(var script in config) {
+        for (var script in config) {
             bootstrap(config[script], script);
         };
     }
