@@ -93,7 +93,7 @@
     
     <!-- ************************************** -->
     <!-- Ensure that the method toString() of Date objects are used to avoid 
-  		having the values as a Long -->
+    having the values as a Long -->
     <!-- ************************************** -->
     <bean
         class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -106,11 +106,21 @@
         </property>
     </bean>
     
-<!--    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller"/>
+    <!--    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller"/>
     <bean id="xmlMessageConverter"
         class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
         <constructor-arg ref="xstreamMarshaller"/>
         <property name="supportedMediaTypes" value="application/xml"/>
+    </bean>-->
+    
+<!--    <bean id="dynamicTilesViewResolver"
+          class="org.springbyexample.web.servlet.view.tiles2.TilesUrlBasedViewResolver">
+        <property name="viewClass" value="org.springbyexample.web.servlet.view.tiles2.DynamicTilesView" />
+        <property name="prefix" value="/WEB-INF/web-pages/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="tilesDefinitionName" value="root" />
+        <property name="tilesBodyAttributeName" value="content" />
+        <property name="tilesDefinitionDelimiter" value="-" />
     </bean>-->
 
 </beans>

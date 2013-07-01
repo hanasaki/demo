@@ -49,7 +49,7 @@ public class TestController {
         List<CarVo> retVal;
         setupCar(model);
 
-        retVal = testBusinessService.listCarsInLot();
+        retVal = testBusinessService.getParkedCarsList();
 
         return (retVal);
     }

@@ -12,4 +12,10 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @WebService()
 @XmlSeeAlso({CarVoBase.class})
 public interface ParkingLotWebserviceSOAP extends TestBusinessService {
+
+    /**
+     * Web service operation
+     */
+//    @WebMethod(operationName = "operation")
+//    public String operation(@WebParam(name = "parameter") String parameter);
 }

@@ -1,10 +1,8 @@
 package com.hanaden.demo.jpaspringmvc.persistence.test.mybatis;
 
 import com.hanaden.demo.jpaspringmvc.domain.CarVo;
-import com.hanaden.demo.jpaspringmvc.domain.CarVoBase;
 import com.hanaden.demo.jpaspringmvc.domain.hibernate.CarVoHibernate;
 import com.hanaden.demo.jpaspringmvc.persistence.CarDao;
-import com.hanaden.demo.jpaspringmvc.persistence.mybatis.GenerickDaoMyBatisInterface;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.List;
@@ -12,6 +10,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 })
 @Transactional(value = "beanTransactionManagerBasicTest")
 @TransactionConfiguration(defaultRollback = true,
-transactionManager = "beanTransactionManagerBasicTest")
+        transactionManager = "beanTransactionManagerBasicTest")
 public class MainCarMyBatisTest {
 //http://blog.idleworx.com/2011/09/mybatis-dao-example-code-tutorial.html
 
@@ -42,29 +41,36 @@ public class MainCarMyBatisTest {
     protected long pk;
     @Resource(name = "beanDatasourceBasicTest")
     protected DataSource ds;
-    
-    public void createTable() throws Exception {
+
+    private boolean createTable(DataSource ds) throws Exception {
+        boolean retVal;
+
         String sql = "CREATE TABLE IF NOT EXISTS `CAR`"
                 + "( "
                 + "ID int identity primary key not null,"
                 + "COMPANY varchar(25),"
                 + "MODEL varchar (25),"
                 + "PRICE decimal(10,2) ); ";
-        Connection connection = ds.getConnection();
-        Statement statement = connection.createStatement();
-        boolean retVal = statement.execute(sql);
 
-//        if (!retVal) {
-//            throw new IllegalStateException(sql + " : retVal = " + retVal);
-//        }
+        Connection connection = ds.getConnection();
+        connection.setAutoCommit(true);
+        Statement statement = connection.createStatement();
+        retVal = statement.execute(sql);
+
+        return (retVal);
     }
-    
+
+    @After
+    public void shutdown() throws Throwable {
+        // noop
+    }
+
     @Before
     @Transactional(value = "beanTransactionManagerBasicTest", propagation = Propagation.REQUIRES_NEW)
-    public void init() throws Throwable {
+    public void startup() throws Throwable {
         Assert.assertNotNull(carDao);
         //
-        createTable();
+        createTable(ds);
         //        
         pk = 0;
 
@@ -87,7 +93,7 @@ public class MainCarMyBatisTest {
         //
         logger.debug((ReflectionToStringBuilder.toString(car)));
     }
-    
+
     @Test
     public void listCarsTest() {
         List<CarVo> cars = carDao.getCars();
@@ -95,7 +101,7 @@ public class MainCarMyBatisTest {
         Assert.assertNotNull(cars);
         Assert.assertEquals(1, cars.size());
     }
-    
+
     @Test
     public void getCarTest() {
         CarVo car = carDao.getCar(pk);

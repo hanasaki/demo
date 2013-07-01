@@ -7,6 +7,7 @@
        xmlns:jaxws="http://cxf.apache.org/jaxws"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
        xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:cxf="http://cxf.apache.org/core" 
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
@@ -18,9 +19,11 @@
 	http://www.springframework.org/schema/context/spring-util-3.1.xsd
         http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
         http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     
-    <jaxrs:server id="beanRestService" address="/rest/restServicePort">
+    <!--http://localhost:8088/app-war/apache-cxf-servlet/rest/restServicePort/parkingLot/findCarById/4-->
+    <jaxrs:server id="beanRestServiceParkingLot" address="/restServicePort">
         <jaxrs:serviceBeans>
             <bean id ="beanTestBusinessServiceREST"
                   class="com.hanaden.demo.jpaspringmvc.webservice.impl.ParkingLotWebserviceRESTImpl">
@@ -28,12 +31,15 @@
         </jaxrs:serviceBeans>
         <jaxrs:extensionMappings>
             <entry key="xml" value="application/xml"/>
+            <entry key="json" value="application/json"/>
         </jaxrs:extensionMappings>
         <jaxrs:providers>
             <ref bean='jacksonProvider' />
             <ref bean="jaxbXmlProvider"/>
         </jaxrs:providers>
-
+        <jaxrs:features>
+            <cxf:logging/>
+        </jaxrs:features>
     </jaxrs:server>
     
     <!--:-->
@@ -43,7 +49,7 @@
         <!--<property name="jaxbElementClassMap" ref="propertiesMap"/>-->
     </bean>
 
-<!--    <util:map id="propertiesMap">
+    <!--    <util:map id="propertiesMap">
         <entry key="jaxb.formatted.output">
             <value type="java.lang.Boolean">true</value>
         </entry>

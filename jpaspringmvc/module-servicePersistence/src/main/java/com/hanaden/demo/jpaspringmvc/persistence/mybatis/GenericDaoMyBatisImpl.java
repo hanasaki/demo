@@ -56,6 +56,7 @@ public abstract class GenericDaoMyBatisImpl<T_OBJ, T_PK>
      * object is called CarInfo.java, the corresponding mapper query id should
      * be: &lt;select id="getCarInfo" ...
      */
+    @Override
     public T_OBJ get(T_PK id) throws PersistenceException {
 
         SqlSession session = sf.openSession();
@@ -80,6 +81,7 @@ public abstract class GenericDaoMyBatisImpl<T_OBJ, T_PK>
      * 1,000,000 rows) look into the aggresiveLazyLoading property
      *
      */
+    @Override
     public ArrayList<T_OBJ> getAll() throws PersistenceException {
 
         SqlSession session = sf.openSession();
@@ -104,6 +106,7 @@ public abstract class GenericDaoMyBatisImpl<T_OBJ, T_PK>
      * select * from [tablename] where NAME = ?
      *
      */
+    @Override
     public T_OBJ getByName(String name) throws PersistenceException {
 
         SqlSession session = sf.openSession();
@@ -126,6 +129,7 @@ public abstract class GenericDaoMyBatisImpl<T_OBJ, T_PK>
      * (fieldname1,fieldname2,...) values(value1,value2...) ...
      *
      */
+    @Override
     public int create(T_OBJ o) throws PersistenceException {
         SqlSession session = sf.openSession();
         Integer status = null;
@@ -147,6 +151,7 @@ public abstract class GenericDaoMyBatisImpl<T_OBJ, T_PK>
      * (example): update [tablename] set fieldname1 = value1 where id = #{id}
      *
      */
+    @Override
     public int update(T_OBJ o) throws PersistenceException {
 
         SqlSession session = sf.openSession();
@@ -170,6 +175,7 @@ public abstract class GenericDaoMyBatisImpl<T_OBJ, T_PK>
      * update [tablename] set fieldname1 = value1 where id = #{id}
      *
      */
+    @Override
     public int delete(T_PK id) throws PersistenceException {
         SqlSession session = sf.openSession();
         Integer status = null;

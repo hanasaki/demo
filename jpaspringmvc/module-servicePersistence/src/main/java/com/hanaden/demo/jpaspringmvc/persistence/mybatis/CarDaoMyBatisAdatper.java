@@ -36,4 +36,11 @@ public class CarDaoMyBatisAdatper implements CarDao {
         dao.save_(car);
         return (car);
     }
+
+    @Override
+    public void delete(final long id) {
+        dao.delete_(id);
+    }
+
+
 }

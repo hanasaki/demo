@@ -11,7 +11,7 @@ public interface TestBusinessService {
 
     CarVo findCarById(final Long id);
 
-    List<CarVo> listCarsInLot();
+    List<CarVo> getParkedCarsList();
 
     CarVo parkCar(CarVo car);
 

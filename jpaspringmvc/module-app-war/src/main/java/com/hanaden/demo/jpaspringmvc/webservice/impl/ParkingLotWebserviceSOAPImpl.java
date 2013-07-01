@@ -28,8 +28,8 @@ public class ParkingLotWebserviceSOAPImpl implements ParkingLotWebserviceSOAP {
     }
 
     @Override
-    public List<CarVo> listCarsInLot() {
-        return (testBusinessService.listCarsInLot());
+    public List<CarVo> getParkedCarsList() {
+        return (testBusinessService.getParkedCarsList());
     }
 
     @Override
@@ -41,4 +41,5 @@ public class ParkingLotWebserviceSOAPImpl implements ParkingLotWebserviceSOAP {
     public void unparkCar(Long id) {
         unparkCar(id);
     }
+
 }

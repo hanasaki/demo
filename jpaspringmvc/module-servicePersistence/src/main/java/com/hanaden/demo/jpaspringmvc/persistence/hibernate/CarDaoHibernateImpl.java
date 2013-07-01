@@ -11,11 +11,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.apache.log4j.Logger;
 
 public class CarDaoHibernateImpl implements CarDao {
 
     protected EntityManager entityManager;
-    
+    private static final Logger logger = Logger.getLogger(CarDaoJpaImpl.class);
+
     public EntityManager getEntityManager() {
         return entityManager;
     }
@@ -41,5 +43,13 @@ public class CarDaoHibernateImpl implements CarDao {
     public CarVo save(CarVo car) {
         entityManager.persist(car);
         return (car);
+    }
+
+    @Override
+    public void delete(final long id) {
+        Query query = getEntityManager().createQuery("delete c from CarVoHibernate c WHERE c.id == :ID");
+        query.setParameter("ID", id);
+        int queryCount = query.executeUpdate();
+        logger.debug("deleleted " + queryCount + " records for ID=" + id);
     }
 }

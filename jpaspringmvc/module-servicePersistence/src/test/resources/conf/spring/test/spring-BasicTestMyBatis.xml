@@ -44,6 +44,7 @@
         <property name="acquireIncrement" value="10"/>                              
         <property name="statementsCacheSize" value="50"/>
         <property name="releaseHelperThreads" value="3"/>
+        <property name="closeConnectionWatch" value="true" />
     </bean>
            
     <!--===============-->

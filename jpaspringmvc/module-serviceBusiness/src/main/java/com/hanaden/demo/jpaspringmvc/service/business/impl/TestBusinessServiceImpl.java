@@ -20,14 +20,14 @@ public class TestBusinessServiceImpl implements TestBusinessService {
     }
 
     @Override
-    public List<CarVo> listCarsInLot() {
+    public List<CarVo> getParkedCarsList() {
         List<CarVo> retVal = carDao.getCars();
         return (retVal);
     }
 
     @Override
     public void unparkCar(final Long id) {
-//        carDao.
+        carDao.delete(id);
     }
 
     @Override
