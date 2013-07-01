@@ -24,13 +24,15 @@
         <!--<hibernate.version>3.3.2.GA</hibernate.version>-->
         <hibernate.version>4.1.6.Final</hibernate.version>
         <!--<hibernate.version>3.5.3-Final</hibernate.version>-->
-        <h2db.version>1.3.168</h2db.version>
+        <h2db.version>1.3.170</h2db.version>
 
         <version.ejb3.persistence>1.0.2.GA</version.ejb3.persistence>
         <version.jta>1.1</version.jta>
         <version.java.sql>2.0</version.java.sql>
         <version.h2db>1.2.140</version.h2db>
         <version.oracle-driver>10.2.0.4</version.oracle-driver>
+        <!--<bonecp.version>0.7.1.RELEASE</bonecp.version>-->
+        <bonecp.version>0.8.0-rc1</bonecp.version>
     </properties>
 
     <modules>
@@ -42,12 +44,12 @@
             <dependency>
                 <groupId>com.jolbox</groupId>
                 <artifactId>bonecp</artifactId>
-                <version>0.7.1.RELEASE</version>
+                <version></version>
             </dependency>
             <dependency>
                 <groupId>com.jolbox</groupId>
                 <artifactId>bonecp-spring</artifactId>
-                <version>0.7.1.RELEASE</version>
+                <version>${bonecp.version}</version>
             </dependency>
             
             <!-- annotations and entity mgr -->
