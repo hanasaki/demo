@@ -5,7 +5,7 @@
     <artifactId>app-war</artifactId>
     <packaging>war</packaging>
 
-    <name>${project.groupId}:${project.artifactId}:${project.packaging}</name>
+    <name>${project.groupId}.${project.artifactId}-${project.version}</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -14,17 +14,30 @@
     </properties>
     
     <parent>
-        <groupId>com.hanaden.depend</groupId>
-        <artifactId>depend-app-war</artifactId>
+        <groupId>com.hanaden.demo.jpaspringmvc</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath></relativePath>
     </parent>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.hanaden.depend</groupId>
-                <artifactId>depend-persistence</artifactId>
+                <artifactId>app-war</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.hanaden.depend</groupId>
+                <artifactId>persistence</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.hanaden.depend</groupId>
+                <artifactId>web</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -32,8 +45,19 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>    
-        
+    <dependencies>  
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <!--            <scope>provided</scope>-->
+        </dependency>
+          
+        <dependency>
+            <groupId>com.hanaden.demo.jpaspringmvc</groupId>
+            <artifactId>serviceBusiness</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+               
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle-jaxrs</artifactId>
@@ -63,23 +87,27 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>c</artifactId>
             <version>1.1.2</version>
             <type>tld</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>fmt</artifactId>
             <version>1.1.2</version>
             <type>tld</type>
+            <scope>provided</scope>
         </dependency>
               
         <dependency>
@@ -120,12 +148,6 @@
             <artifactId>jackson-jaxrs</artifactId>
         </dependency>
                                
-        <dependency>
-            <groupId>com.hanaden.demo.jpaspringmvc</groupId>
-            <artifactId>serviceBusiness</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <!--<type>jar</type>-->
-        </dependency>
         <!--        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>

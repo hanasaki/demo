@@ -6,12 +6,13 @@
     <packaging>jar</packaging>
     
     <parent>
-        <groupId>com.hanaden.depend</groupId>
-        <artifactId>depend-base</artifactId>
+        <groupId>com.hanaden.demo.jpaspringmvc</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>${project.groupId}:${project.artifactId}:${project.packaging}</name>
+    <name>${project.groupId}.${project.artifactId}-${project.version}</name>
+    
     <url>http://maven.apache.org</url>
 
     <properties>

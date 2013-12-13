@@ -5,22 +5,23 @@
     http://maven.apache.org/maven-v4_0_0.xsd">
     <!-- Frederick Bloom : 2012-01-01 -->
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>depend-base</artifactId>
-    <name>${project.groupId}:${project.artifactId}:${project.packaging}</name>
+    <artifactId>base</artifactId>
+    <name>${project.groupId}.${project.artifactId}-${project.version}</name>
     <packaging>pom</packaging>
     <url>http://www.hanaden.com</url>
 
     <parent>
         <groupId>com.hanaden.depend</groupId>
-        <artifactId>depend-parent</artifactId>
+        <artifactId>parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <properties>
-        <spring.version>3.1.2.RELEASE</spring.version>
-        <junit.version>4.10</junit.version>
+<!--        <spring.version>3.1.2.RELEASE</spring.version>
+        <junit.version>4.11</junit.version>
         <cglib.version>2.2.2</cglib.version>
-        <jackson.version>1.9.12</jackson.version>
+        <jackson.version>1.9.13</jackson.version>
+        <hibernate.version>4.3.1.Final</hibernate.version>-->
     </properties>
     
     <modules>
@@ -34,7 +35,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.3.1.Final</version>
+                <version>${hibernate.version}</version>
             </dependency>
            
             <dependency>
@@ -323,10 +324,19 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+<!--        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
         
     </dependencies>
     
     <build>
+        <!--<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>-->
         <!--build-->
         <plugins>
             <plugin>
@@ -353,10 +363,10 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>[3.0.3,3.1)</version>
+                                    <version>[3.0.5,3.2)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>1.5</version>
+                                    <version>1.7</version>
                                 </requireJavaVersion>
                                 <!--                                <requireOS>
                                     <family>unix</family>
@@ -380,8 +390,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <forkMode>always</forkMode>
+                    <reuseForks>true</reuseForks>
                     <forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
-                    <parallel>true</parallel>
+                    <!--<parallel>true</parallel>-->
                     <!--                    <additionalClasspathElements>
                         <element>src/main/resources</element>
                     </additionalClasspathElements>-->

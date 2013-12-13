@@ -6,10 +6,10 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hanaden.depend</groupId>
-    <artifactId>depend-resources</artifactId>
+    <artifactId>resources</artifactId>
     <packaging>jar</packaging>
     <version>1.0.1</version>
-    <name>${project.groupId}:${project.artifactId} ${project.version}</name>
+    <name>${project.groupId}.${project.artifactId}-${project.version}</name>
     <url>http://www.hanaden.com</url>
 
     <scm>

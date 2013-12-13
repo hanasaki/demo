@@ -6,10 +6,10 @@
     <!-- Frederick Bloom : 2012-01-01 -->
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hanaden.depend</groupId>
-    <artifactId>depend-parent</artifactId>
+    <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>${project.groupId}:${project.artifactId}:${project.packaging}</name>
+    <name>${project.groupId}.${project.artifactId}-${project.version}</name>
     <url>http://www.hanaden.com</url>
 
     <prerequisites>
@@ -89,27 +89,29 @@
         <!--
     http://old.nabble.com/-m2\-\-finalName-not-taken-into-account-in-install-td1632040.html
         -->
-        <finalName>${project.artifactId}-${project.version}</finalName>
+        <!--<finalName>${project.artifactId}-${project.version}</finalName>-->
+        <!--<finalName>${project.groupId}:${project.artifactId}:${project.packaging}</finalName>-->
+        <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
 
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>1.4</version>
+                    <version>1.5</version>
                 </plugin>
                 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
-                    <version>1.5</version>
+                    <version>1.8.1</version>
                     <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <inherited>true</inherited>
-                    <version>2.14.1</version>
+                    <version>2.16</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -129,18 +131,18 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.2</version>
+                    <version>3.3</version>
                 </plugin>
 
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>failsafe-maven-plugin</artifactId>
-                    <version>2.4.3-alpha-1</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.16</version>
                     <configuration>
                         <includes>
                             <include>**/*_IT.java</include>
@@ -162,6 +164,31 @@
                         </execution>
                     </executions>
                 </plugin>
+                <!--                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>failsafe-maven-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*_IT.java</include>
+                            <include>**/*TestIT.java</include>
+                        </includes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>integration-test</id>
+                            <goals>
+                                <goal>integration-test</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>verify</id>
+                            <goals>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>-->
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -209,7 +236,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.14.1</version>
+                <version>2.16</version>
                 <configuration>
                     <xrefLocation>${project.reporting.outputDirectory}/../xref-test</xrefLocation>
                 </configuration>
@@ -217,7 +244,7 @@
 
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>2.9.1</version>
                 <configuration>
                     <minmemory>256m</minmemory>
                     <maxmemory>1024m</maxmemory>
@@ -336,7 +363,7 @@
 
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.7.1</version>
+                <version>3.0.1</version>
                 <configuration>
                     <linkXref>true</linkXref>
                     <sourceEncoding>utf-8</sourceEncoding>
@@ -358,7 +385,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>2.5.2</version>
                 <configuration>
                     <threshold>Normal</threshold>
                     <effort>Default</effort>
@@ -422,13 +449,13 @@
             </snapshots>
         </pluginRepository>-->
 
-        <pluginRepository>
+        <!--        <pluginRepository>
             <id>hanaden-maven-plugin</id>
             <url>http://maven2.hanaden.com/nexus/content/groups/public</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </pluginRepository>
+        </pluginRepository>-->
 
         <!-- for PAX and OSGi -->
         <!--        <pluginRepository>
@@ -442,7 +469,7 @@
     </pluginRepositories>
 
     <repositories>
-        <repository>
+        <!--        <repository>
             <id>repository-hanaden-snapshots</id>
             <name>Hanaden - SNAPSHOTS</name>
             <releases>
@@ -457,16 +484,16 @@
             </snapshots>
             <url>http://maven2.hanaden.com/nexus/content/repositories/hanaden-snapshots</url>
             <layout>default</layout>
-        </repository>
+        </repository>-->
        
-        <repository>
+        <!--        <repository>
             <id>repository.jboss.org-releases</id>
             <name>JBoss repository</name>
-            <!--<url>https://repository.jboss.org/nexus/content/groups/public</url>-->
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
             <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
-        </repository>
+        </repository>-->
 
-        <repository>
+        <!--        <repository>
             <id>repository-hanaden-releases</id>
             <name>Hanaden - RELEASES</name>
             <releases>
@@ -481,13 +508,13 @@
             </snapshots>
             <url>http://maven2.hanaden.com/nexus/content/repositories/hanaden-releases</url>
             <layout>default</layout>
-        </repository>
+        </repository>-->
 
-        <repository>
+        <!--        <repository>
             <id>maven2-repository-central</id>
             <url>http://maven2.hanaden.com/nexus/content/groups/public/</url>
-            <!--            <url>http://repo1.maven.org/maven2</url>-->
-        </repository>
+                        <url>http://repo1.maven.org/maven2</url>
+        </repository>-->
 
         <!--        <repository>
             <id>maven2-repository.dev.java.net</id>
@@ -505,14 +532,14 @@
             </snapshots>
         </repository>-->
 
-        <repository>
+        <!--        <repository>
             <id>hanaden-thirdparty</id>
             <name>http://maven2.hanaden.com/nexus/content/repositories/thirdparty/</name>
             <url>http://maven2.hanaden.com/nexus/content/repositories/thirdparty/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
+        </repository>-->
 
     </repositories>
     
@@ -526,6 +553,34 @@
                 <owner.name>hanasaki</owner.name>
                 <downloadSources>true</downloadSources>
                 <downloadJavadocs>true</downloadJavadocs>
+                <!--:-->
+                <spring.version>3.1.2.RELEASE</spring.version>
+                <junit.version>4.11</junit.version>
+                <cglib.version>2.2.2</cglib.version>
+                <jackson.version>1.9.13</jackson.version>
+                <hibernate.version>4.3.1.Final</hibernate.version>
+                <!--:-->
+                <version.servlet.api>2.5</version.servlet.api>
+                <version.servlet.jsp>2.1</version.servlet.jsp>
+                <!--.-->
+                <version.apache.cxf>2.6.2</version.apache.cxf>
+                <!--:-->
+                <version.c3p0>0.9.1.2</version.c3p0>
+                <version.mysql-driver>5.1.10</version.mysql-driver>
+                <!--<hibernate.version>3.3.2.GA</hibernate.version>-->
+                <!--<hibernate.version>4.1.6.Final</hibernate.version>-->
+                <!--<hibernate.version>3.5.3-Final</hibernate.version>-->
+                <h2db.version>1.3.170</h2db.version>
+                <!--<cglib.version>3.0</cglib.version>-->
+                <cglib.version>2.2.2</cglib.version>
+
+                <version.ejb3.persistence>1.0.2.GA</version.ejb3.persistence>
+                <version.jta>1.1</version.jta>
+                <version.java.sql>2.0</version.java.sql>
+                <version.h2db>1.2.140</version.h2db>
+                <version.oracle-driver>10.2.0.4</version.oracle-driver>
+                <!--<bonecp.version>0.7.1.RELEASE</bonecp.version>-->
+                <bonecp.version>0.8.0.RELEASE</bonecp.version>
             </properties>
 
             <repositories>
@@ -542,7 +597,7 @@
                     </releases>
                 </pluginRepository>                
             </pluginRepositories>
-            
+
         </profile>
         
     </profiles>
